@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DSConsoleNetCore", "DSConsoleNetCore\DSConsoleNetCore.csproj", "{1F24CBE3-C440-42B6-9B81-B748A0634879}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocuSign.Test", "DocuSign.Test\DocuSign.Test.csproj", "{236D49BC-B0F7-438B-B147-4847769E0D4D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DSClass", "DSClass\DSClass.csproj", "{D6E7545C-EE6D-43D3-B4C1-9932CF008374}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +16,13 @@ Global
 		{1F24CBE3-C440-42B6-9B81-B748A0634879}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F24CBE3-C440-42B6-9B81-B748A0634879}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F24CBE3-C440-42B6-9B81-B748A0634879}.Release|Any CPU.Build.0 = Release|Any CPU
+		{236D49BC-B0F7-438B-B147-4847769E0D4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{236D49BC-B0F7-438B-B147-4847769E0D4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{236D49BC-B0F7-438B-B147-4847769E0D4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{236D49BC-B0F7-438B-B147-4847769E0D4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6E7545C-EE6D-43D3-B4C1-9932CF008374}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6E7545C-EE6D-43D3-B4C1-9932CF008374}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6E7545C-EE6D-43D3-B4C1-9932CF008374}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6E7545C-EE6D-43D3-B4C1-9932CF008374}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
