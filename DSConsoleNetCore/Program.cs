@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using DSClass;
+using Microsoft.Extensions.Configuration;
 
 namespace DSConsoleNetCore;
 
@@ -25,56 +26,10 @@ internal class Program
         var userId = config["DocuSign:UserId"];
         var authServer = config["DocuSign:AuthServer"];
         var path = config["DocuSign:PrivateKeyFile"];
-        Console.WriteLine($"Hello, World! {clientId}");
-        OAuthToken accessToken = null;
+        
+        DSFirma firma = new DSFirma(clientId,userId,authServer,path);
 
-        string DevCenterPage = "https://developers.docusign.com/platform/auth/consent";
-
-        try
-        {
-            accessToken =
-                JWTAuth.AuthenticateWithJWT("ESignature", clientId, userId, authServer, DSHelper.ReadFileContent(path));
-        }
-        catch (ApiException apiExp)
-        {
-            // Consent for impersonation must be obtained to use JWT Grant
-            if (apiExp.Message.Contains("consent_required"))
-            {
-                // Caret needed for escaping & in windows URL
-                string caret = "";
-                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                {
-                    caret = "^";
-                }
-
-                // build a URL to provide consent for this Integration Key and this userId
-                string url = "https://" + authServer + "/oauth/auth?response_type=code" +
-                             caret + "&scope=impersonation%20signature" + caret +
-                             "&client_id=" + clientId + caret + "&redirect_uri=" +
-                             DevCenterPage;
-                Console.WriteLine($"Consent is required - launching browser (URL is {url.Replace(caret, "")})");
-
-                // Start new browser window for login and consent to this app by DocuSign user
-                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                {
-                    Process.Start(new ProcessStartInfo("cmd", $"/c start {url}") { CreateNoWindow = false });
-                }
-                else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-                {
-                    Process.Start("xdg-open", url);
-                }
-                else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-                {
-                    Process.Start("open", url);
-                }
-
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(
-                    "Unable to send envelope; Exiting. Please rerun the console app once consent was provided");
-                Console.ForegroundColor = ConsoleColor.White;
-                Environment.Exit(-1);
-            }
-        }
+        OAuthToken accessToken = firma.ConectarJwt();
 
         var docuSignClient = new DocuSignClient();
         docuSignClient.SetOAuthBasePath(authServer);
@@ -83,13 +38,11 @@ internal class Program
 
         Console.WriteLine("Welcome to the JWT Code example! ");
         Console.Write("Enter the signer's email address: ");
-        string signerEmail = Console.ReadLine();
+        string signerEmail = "csegura@estrategiasdocumentales.com";
         Console.Write("Enter the signer's name: ");
-        string signerName = Console.ReadLine();
-        Console.Write("Enter the carbon copy's email address: ");
-        string ccEmail = "demo@gmai.co";
-        Console.Write("Enter the carbon copy's name: ");
-        string ccName = "test";
+        string signerName = "Camilos";
+        string ccEmail = "csegura+demo@estrategiasdocumentales.com";
+        string ccName = "crhis";
         // string docDocx = Path.Combine(@"..", "..", "..", "..", "launcher-csharp", "World_Wide_Corp_salary.docx");
         // string docPdf = Path.Combine(@"..", "..", "..", "..", "launcher-csharp", "World_Wide_Corp_lorem.pdf");
         Console.WriteLine("");

@@ -104,6 +104,13 @@ public class SigningViaEmail
             RecipientId = "1",
             RoutingOrder = "1",
         };
+        Signer signer2 = new Signer
+        {
+            Email = ccEmail,
+            Name = ccName,
+            RecipientId = "2",
+            RoutingOrder = "2",
+        };
 
         // routingOrder (lower means earlier) determines the order of deliveries
         // to the recipients. Parallel routing order is supported by using the
@@ -128,33 +135,40 @@ public class SigningViaEmail
         // use the same anchor string for their "signer 1" tabs.
         SignHere signHere1 = new SignHere
         {
-            AnchorString = "**signature_1**",
-            AnchorUnits = "pixels",
-            AnchorYOffset = "10",
-            AnchorXOffset = "20",
+            XPosition = "0",
+            YPosition = "20",
+            PageNumber = "1",
+            DocumentId = doc1.DocumentId
         };
 
         SignHere signHere2 = new SignHere
         {
-            AnchorString = "/sn1/",
-            AnchorUnits = "pixels",
-            AnchorYOffset = "10",
-            AnchorXOffset = "20",
+            XPosition = "10",
+            YPosition = "10",
+            PageNumber = "1",
+            DocumentId = doc1.DocumentId
         };
 
         // Tabs are set per recipient / signer
         Tabs signer1Tabs = new Tabs
         {
-            SignHereTabs = new List<SignHere> { signHere1, signHere2 },
+            SignHereTabs = new List<SignHere> { signHere1 }
         };
         signer1.Tabs = signer1Tabs;
+        
+        Tabs signer2Tabs = new Tabs
+        {
+            SignHereTabs = new List<SignHere> { signHere2 },
+        };
+        signer2.Tabs = signer2Tabs;
 
         // Add the recipients to the envelope object
         Recipients recipients = new Recipients
         {
-            Signers = new List<Signer> { signer1 },
-            CarbonCopies = new List<CarbonCopy> { cc1 },
+            Signers = new List<Signer> { signer1, signer2 },
+            CarbonCopies = new List<CarbonCopy> {  },
         };
+        
         env.Recipients = recipients;
 
         // Request that the envelope be sent by setting |status| to "sent".
