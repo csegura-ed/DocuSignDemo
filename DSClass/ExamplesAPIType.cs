@@ -1,6 +1,7 @@
 ﻿namespace DSClass;
 
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
 public enum ExamplesAPIType
 {
@@ -11,6 +12,7 @@ public enum ExamplesAPIType
     [Description("Aeg")] Admin = 4,
 }
 
+[ExcludeFromCodeCoverage]
 public static class ExamplesAPITypeExtensions
 {
     public static string ToKeywordString(this ExamplesAPIType val)

@@ -2,14 +2,8 @@ using DocuSign.eSign.Model;
 
 using DocuSign.eSign.Client;
 using static DocuSign.eSign.Client.Auth.OAuth;
-using static DocuSign.eSign.Client.Auth.OAuth.UserInfo;
-using System;
 using System.Diagnostics;
-using System.Configuration;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Web;
-using System.IO;
 
 namespace DSClass;
 
