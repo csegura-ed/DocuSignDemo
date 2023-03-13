@@ -10,8 +10,7 @@ namespace DocuSign.Test;
 public class DSFirmaTests
 {
     private DSFirma sut;
-    private Signer Signer1, Signer2;
-    private SignHere SignHere1, SignHere2;
+    private DSFirmante Signer1, Signer2;
     private Document doc1;
     private IConfigurationBuilder? Configuration { get; set; }
     
@@ -27,42 +26,32 @@ public class DSFirmaTests
         var userId = config["DocuSign:UserId"];
         var authServer = config["DocuSign:AuthServer"];
         var path = config["DocuSign:PrivateKeyFile"];
-        string documentPath = config["DocuSign:TestFile"];;
+        string documentPath = config["DocuSign:TestFile"]!;
         
         sut = new DSFirma(clientId, userId, authServer, path);
-
-        Signer1 = new()
-        {
-            Email = "csegura@estrategiasdocumentales.com",
-            Name = "cami",
-            RecipientId = "1",
-            RoutingOrder = "1",
-        };
-        Signer2 = new()
-        {
-            Email = "csegura+second@estrategiasdocumentales.com",
-            Name = "crhis",
-            RecipientId = "2",
-            RoutingOrder = "2",
-        };
+        
         doc1 = DSDocument.CreateDocument(documentPath);
 
-        SignHere1 = new SignHere
-        {
-            XPosition = "0",
-            YPosition = "20",
-            PageNumber = "1",
-            DocumentId = doc1.DocumentId
-        };
-
-        SignHere2 = new SignHere
-        {
-            XPosition = "10",
-            YPosition = "10",
-            PageNumber = "1",
-            DocumentId = doc1.DocumentId
-        };
-        
+        Signer1 = new DSFirmante(
+            email:"csegura@estrategiasdocumentales.com",
+            name : "cami",
+            recipientId: "1",
+            routingOrder:  "1",
+            xPosition:  "0",
+            yPosition:"20",
+            pageNumber:"1",
+            documentId : doc1.DocumentId
+        );
+        Signer2 = new(
+            email : "csegura+second@estrategiasdocumentales.com",
+            name : "crhis",
+            recipientId : "2",
+            routingOrder : "2",
+            xPosition : "10",
+            yPosition : "10",
+            pageNumber : "1",
+            documentId : doc1.DocumentId
+        );
     }
     [Test]
     public void ConnectionSucessfull()
@@ -76,8 +65,10 @@ public class DSFirmaTests
     {
         var aut = sut.ConectarJwt();
         if (aut is null) return;
-        var signers = new List<Signer>() { Signer1 };
-        
-        // sut.SendEmail(documents,signers,positions);
+        var signers = new List<DSFirmante>() { Signer1 };
+        var documents = new List<Document>() { doc1 };
+        var env = sut.SendEmail(documents,signers, "Subject");
+
+        env.Should().NotBeNull();
     }
 }
