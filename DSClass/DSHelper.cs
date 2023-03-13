@@ -29,7 +29,7 @@ internal class DSHelper
         return Path.Combine(filePath, fileNameOnly);
     }
 
-    internal static byte[] ReadFileContent(string path)
+    internal static byte[] ReadFileContent(string? path)
     {
         return File.ReadAllBytes(path);
     }

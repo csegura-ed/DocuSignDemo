@@ -7,8 +7,8 @@ using static DocuSign.eSign.Client.Auth.OAuth;
 
 public static class JWTAuth
 {
-    public static OAuthToken AuthenticateWithJWT(string api, string clientId, string impersonatedUserId,
-        string authServer, byte[] privateKeyBytes)
+    public static OAuthToken AuthenticateWithJWT(string api, string? clientId, string? impersonatedUserId,
+        string? authServer, byte[] privateKeyBytes)
     {
         var docuSignClient = new DocuSignClient();
         var apiType = Enum.Parse<ExamplesAPIType>(api);

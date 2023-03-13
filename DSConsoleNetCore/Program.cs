@@ -3,16 +3,11 @@ using Microsoft.Extensions.Configuration;
 
 namespace DSConsoleNetCore;
 
+using System;
 using DocuSign.eSign.Client;
+using System.Linq;
 using static DocuSign.eSign.Client.Auth.OAuth;
 using static DocuSign.eSign.Client.Auth.OAuth.UserInfo;
-using System;
-using System.Diagnostics;
-using System.Configuration;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Web;
-using System.IO;
 
 internal class Program
 {
@@ -29,7 +24,7 @@ internal class Program
         
         DSFirma firma = new DSFirma(clientId,userId,authServer,path);
 
-        OAuthToken accessToken = firma.ConectarJwt();
+        OAuthToken? accessToken = firma.ConectarJwt();
 
         var docuSignClient = new DocuSignClient();
         docuSignClient.SetOAuthBasePath(authServer);

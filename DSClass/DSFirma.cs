@@ -15,13 +15,13 @@ namespace DSClass;
 
 public class DSFirma
 {
-    private string ClientId { get; set; }
+    private string? ClientId { get; set; }
     private OAuthToken? AccessToken { get; set; }
-    private string UserId { get; set; }
-    private string AuthServer { get; set; }
-    private string PrivateKeyPath { get; set; }
+    private string? UserId { get; set; }
+    private string? AuthServer { get; set; }
+    private string? PrivateKeyPath { get; set; }
 
-    public DSFirma(string clientId ,string userId,string authServer,string privateKeyPath)
+    public DSFirma(string? clientId ,string? userId,string? authServer,string? privateKeyPath)
     {
         this.ClientId = clientId;
         this.UserId = userId;
@@ -30,7 +30,7 @@ public class DSFirma
         this.AccessToken = null;
     }
     
-    public OAuthToken ConectarJwt()
+    public OAuthToken? ConectarJwt()
     {
         const string devCenterPage = "https://developers.docusign.com/platform/auth/consent";
 
@@ -82,4 +82,6 @@ public class DSFirma
         }
         return AccessToken;
     } 
+    
+    
 }
