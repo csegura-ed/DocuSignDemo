@@ -1,0 +1,16 @@
+﻿@model ResultModel
+
+@{
+    ViewData["Title"] = "Resultado";
+}
+
+<div>
+    @if (@Model.Value == 1)
+    {
+        <span class="text-success">@Model.Message</span>
+    }
+    else
+    {
+        <span class="text-danger">@Model.Message</span>
+    }
+</div>

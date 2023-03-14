@@ -1,0 +1,47 @@
+﻿@model SignerData
+
+@{
+    ViewData["Title"] = "Demo page";
+}
+
+<h2>Enviar correo demo</h2>
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+{
+    <div class="form-horizontal">
+        <h4></h4>
+        <hr/>
+        <div class="form-group">
+            @Html.LabelFor(x => x.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(x => x.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(x => x.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(x => x.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(x => x.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.Position, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(x => x.Position,
+                    new SelectList(Enum.GetValues(typeof(Position))),
+                    "",
+                    new { @class = "form-select" })
+                @Html.ValidationMessageFor(x => x.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <br/>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Enviar Firma" class="btnbtn-primary"/>
+            </div>
+        </div>
+    </div>
+}

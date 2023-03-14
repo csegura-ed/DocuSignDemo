@@ -1,16 +1,18 @@
-using DocuSign.eSign.Model;
-
-using DocuSign.eSign.Client;
-using static DocuSign.eSign.Client.Auth.OAuth;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using DocuSign.eSign.Api;
+using DocuSign.eSign.Client;
+using DocuSign.eSign.Client.Auth;
+using DocuSign.eSign.Model;
+using static DocuSign.eSign.Client.Auth.OAuth;
+using static DocuSign.eSign.Client.Auth.OAuth.UserInfo;
 
 namespace DSClass;
 
 public class DSFirma
 {
     private string? ClientId { get; set; }
-    private OAuthToken? AccessToken { get; set; }
+    public OAuthToken? AccessToken { get; set; }
     private string? UserId { get; set; }
     private string? AuthServer { get; set; }
     private string? PrivateKeyPath { get; set; }
@@ -32,7 +34,6 @@ public class DSFirma
         {
             AccessToken = JWTAuth.AuthenticateWithJWT("ESignature", ClientId, UserId,
                 AuthServer, DSHelper.ReadFileContent(PrivateKeyPath));
-
         }
         catch (ApiException apiExp)
         {
@@ -70,19 +71,33 @@ public class DSFirma
                 {
                     Process.Start("open", url);
                 }
+
                 Console.WriteLine(
                     "Unable to send envelope; Exiting. Please rerun the console app once consent was provided");
             }
         }
+
         return AccessToken;
     }
 
-    public EnvelopeDefinition SendEmail(List<Document> documents, List<DSFirmante> signers, string subject)
+    public EnvelopeSummary SendEmail(List<Document> documents, List<DSFirmante> signers, string subject)
     {
         EnvelopeDefinition env = MakeEnvelop(documents, signers);
         env.EmailSubject = subject;
 
-        return env;
+        var docuSignClient1 = new DocuSignClient();
+        docuSignClient1.SetOAuthBasePath(AuthServer);
+        OAuth.UserInfo userInfo = docuSignClient1.GetUserInfo(AccessToken.access_token);
+        Account acct = userInfo.Accounts.FirstOrDefault();
+
+        var basePath = "https://demo.docusign.net/restapi";
+
+        var docuSignClient = new DocuSignClient(basePath);
+        docuSignClient.Configuration.DefaultHeader.Add("Authorization", "Bearer " + AccessToken);
+
+        EnvelopesApi envelopesApi = new EnvelopesApi(docuSignClient);
+        EnvelopeSummary results = envelopesApi.CreateEnvelope(acct.AccountId, env);
+        return results;
     }
 
     private EnvelopeDefinition MakeEnvelop(List<Document> documents, List<DSFirmante> signers)

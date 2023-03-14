@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocuSign.Test", "DocuSign.T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DSClass", "DSClass\DSClass.csproj", "{D6E7545C-EE6D-43D3-B4C1-9932CF008374}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplicationDemo", "WebApplicationDemo\WebApplicationDemo.csproj", "{0E27CCE6-80A6-4CCA-98D7-B7C531E5BC0E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{D6E7545C-EE6D-43D3-B4C1-9932CF008374}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6E7545C-EE6D-43D3-B4C1-9932CF008374}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6E7545C-EE6D-43D3-B4C1-9932CF008374}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E27CCE6-80A6-4CCA-98D7-B7C531E5BC0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E27CCE6-80A6-4CCA-98D7-B7C531E5BC0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E27CCE6-80A6-4CCA-98D7-B7C531E5BC0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E27CCE6-80A6-4CCA-98D7-B7C531E5BC0E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
