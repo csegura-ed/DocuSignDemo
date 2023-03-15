@@ -31,16 +31,19 @@
             <div class="col-md-10">
                 @Html.DropDownListFor(x => x.Position,
                     new SelectList(Enum.GetValues(typeof(Position))),
-                    "",
+                    "Selecione una opcion",
                     new { @class = "form-select" })
-                @Html.ValidationMessageFor(x => x.Name, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(x => x.Position, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <br/>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Enviar Firma" class="btnbtn-primary"/>
+                <input type="submit" value="Enviar Firma mail" name="onMail" class="btn btn-primary"/>
+                @* Boton para firma embebida *@
+                <input type="submit" value="Abrir en ventana" name="onWeb" class="btn btn-info"/>
+
             </div>
         </div>
     </div>

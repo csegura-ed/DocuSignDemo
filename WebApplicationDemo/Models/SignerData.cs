@@ -15,8 +15,8 @@ public class SignerData
     [MinLength(5, ErrorMessage = "Nombre debe contener mínimo 5 caracteres")]
     [Display(Name = "Nombre Completo", Prompt = "Juan Perez")]
     public string Name { get; set; }
-
-    public Position Position { get; set; }
+    [Required(ErrorMessage = "Este campo es obligatorio")]
+    public Position? Position { get; set; }
 }
 
 public enum Position

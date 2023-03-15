@@ -10,4 +10,12 @@ public class Result : Controller
     {
         return View(rm);
     }
+
+    public IActionResult FirmaWeb(string url)
+    {
+
+        ViewData["url"] = url;
+
+        return View();
+    }
 }
